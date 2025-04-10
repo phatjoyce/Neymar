@@ -16,8 +16,8 @@ public class Character
     }
 
     
-    public void changeHealth(int z){
-        health = health + z;
+    public void changeHealth(int x){
+        health = health + x;
     }
     /*
     public void setLocation(Room z){
