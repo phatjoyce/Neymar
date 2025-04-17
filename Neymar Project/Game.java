@@ -6,6 +6,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView; 
+import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
 
 public class Game extends Application {
     private Stage primaryStage;
@@ -19,16 +26,28 @@ public class Game extends Application {
         primaryStage.setTitle("Insert Game Name");
         primaryStage.setScene(playerSelectScreen());
         primaryStage.show();
+        
+        
+        
     }
 
     
     //Player Select Screen
     private Scene playerSelectScreen() {
+        //first image
+        Image myImage = new Image("first.png", 400, 400, false, false);
+        ImageView ver= new ImageView();
+        ver.setImage(myImage); 
+        
+        
         //texts
         Text welcomeText = new Text("Choose your character");
         Text char1 = new Text("dino");
         Text char2 = new Text("ballet");
         Text char3 = new Text("Neymar");
+        
+       
+        
         
         //creates 3 buttons
         Button playerDinoButton = new Button("Start Game");
