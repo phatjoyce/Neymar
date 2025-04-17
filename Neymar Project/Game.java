@@ -16,6 +16,11 @@ import javafx.geometry.Pos;
 
 public class Game extends Application {
     private Stage primaryStage;
+    private int tabWidth = 800;
+    private int tabHeight = 450;
+
+    private String characterSaved;
+    private int difficultyLevel;
     
 
     @Override
@@ -81,14 +86,15 @@ public class Game extends Application {
     }
     //Player Select Screen methods
     private void playerSelectAction(String name, int difficulty){
-        //create new player with difficulty
-        //Player p1 = new Player(name, difficulty);
+        //create new player, sets difficulty, and changes room
+        Player p1 = new Player(name);
+        difficultyLevel = difficulty;
         primaryStage.setScene(chooseMessiRonaldoScreen());
     }
     
     
     
-    // Choosing Messi/Ronaldo Screen
+    // Choosing Messi/Ronaldo Screen //coding direction done //coding aethetics needed
     private Scene chooseMessiRonaldoScreen() {
         //texts
         Text welcomeText = new Text("Choose who you save");
@@ -100,7 +106,6 @@ public class Game extends Application {
         Button saveRonaldo = new Button("Ronaldo");
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
-        //**change the scene loop to **MAIN PAGE** instead of choosing screen
         saveMessi.setOnAction(e -> characterSaveAction("Messi"));
         saveRonaldo.setOnAction(e -> characterSaveAction("Ronaldo"));
         
@@ -125,7 +130,7 @@ public class Game extends Application {
     }
     private void characterSaveAction(String name){
         //create change variable of saved, declare variable at top
-        //savedChar = name;
+        characterSaved = name;
         primaryStage.setScene(mainRoom()); //next screen
     }
     
@@ -140,13 +145,16 @@ public class Game extends Application {
         
         //Top pane
         //health points addition
-        //hbox
+        HBox healthBar = new HBox();
         
         
         
         //Left pane buttons menu
         Button mr1 = new Button("Math Room 1");
         Button mr2 = new Button("Math Room 2");
+        
+        mr1.setOnAction(e -> createMathRoom("m1"));
+        mr2.setOnAction(e -> createMathRoom("m2"));
         
         VBox roomMenuBar = new VBox(mr1, mr2);
         
@@ -156,7 +164,7 @@ public class Game extends Application {
         
         
         //whole
-        HBox root = new HBox(roomMenuBar, rightPane);
+        HBox root = new HBox(healthBar, roomMenuBar, rightPane);
         root.setSpacing(10);
         root.setStyle("-fx-padding: 10;");
         
@@ -164,7 +172,53 @@ public class Game extends Application {
         return new Scene(root, 400, 300);
         
     }
-    
+    //main room methods
+    private void createMathRoom(String name){
+        //make new instance of room
+        MathRoom m1 = new MathRoom(name, true, difficultyLevel);
+        
+        //move to room
+        primaryStage.setScene(mathRoomScene(m1));
+    }
+    //gui for math room
+    private Scene mathRoomScene(MathRoom m) {
+        //texts
+        Text welcomeText = new Text("Choose who you save");
+        Text char1 = new Text("Messi");
+        Text char2 = new Text("Ronaldo");
+        
+        //creates 3 buttons
+        Button saveMessi = new Button("test");
+        Button saveRonaldo = new Button("set");
+
+        //set all buttons to lead to "chooseMessiRonaldo" screen
+        saveMessi.setOnAction(e -> mathRoomReset(m));
+        saveRonaldo.setOnAction(e -> mathRoomReset(m));
+        
+        
+        //top panel
+        HBox topPane = new HBox( char1, char2 );
+        //add the changing sizes and padding here**
+        
+        //bottom panel
+        HBox bottomPane = new HBox( saveMessi, saveRonaldo );
+        //add the changing sizes and padding here**
+        
+        
+        //whole
+        VBox root = new VBox(topPane, bottomPane);
+        root.setSpacing(10);
+        root.setStyle("-fx-padding: 10;");
+        
+        //sizing of main box application*
+        return new Scene(root, 400, 300);
+        
+    }
+    private void mathRoomReset(MathRoom m1){
+        //create change variable of saved, declare variable at top
+        m1 = null;
+        primaryStage.setScene(mainRoom()); //next screen
+    }
     
     
     

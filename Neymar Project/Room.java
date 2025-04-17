@@ -10,19 +10,21 @@ public class Room
     //private ArrayList<String> answerBank;
     //move these to subclass
     
-    private ArrayList<Key> inventory;
+    //private ArrayList<Key> inventory;
+    private boolean keyStatus;
     
-    public Room(String x, Key k)
+    public Room(String x, boolean k)
     {
         this.name = x;
-        this.inventory = new ArrayList<Key>();
-        this.inventory.add(k);
+        this.keyStatus = k;
+        //this.inventory = new ArrayList<Key>();
+        //this.inventory.add(k);
         
     }
     
     //only ever needs to remove, and removes at index 0
     public void removeKey() {
-        inventory.remove(0);
+        //inventory.remove(0);
     }
     
 

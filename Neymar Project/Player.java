@@ -6,14 +6,12 @@ public class Player
     private String name;
     private int health;
     //private Room location;
-    private int difficultyLevel;
-    private ArrayList<Key> inventory;
+    //private ArrayList<Key> inventory;
 
-    public Player(String x, int difficulty){
+    public Player(String x){
         this.name = x;
         this.health = 3;
-        difficultyLevel = difficulty;
-        this.inventory = new ArrayList<Key>();
+        //this.inventory = new ArrayList<Key>();
         //this.location = startingRoom;
     }
 
