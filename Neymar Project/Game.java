@@ -210,26 +210,37 @@ public class Game extends Application {
         Button mr1 = new Button("Math Room 1");
         Button mr2 = new Button("Math Room 2");
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
-//<<<<<<< HEAD
-//VBox roomMenuBar = new VBox(20, mr1, mr2);
-//=======
-//   mr1.setOnAction(e -> createMathRoom("m1"));
-//    mr2.setOnAction(e -> createMathRoom("m2"));
-//    VBox roomMenuBar = new VBox(mr1, mr2);
-//>>>>>>> b52ea7e76747d284221fffc23d3c557c5be082ed
-        
+HBox roomMenuBar = new HBox(20, mr1, mr2);
+mr1.setOnAction(e -> createMathRoom("m1"));
+mr2.setOnAction(e -> createMathRoom("m2"));
+//VBox roomMenuBar = new VBox(mr1, mr2);        
         
         //Right pane
         VBox rightPane = new VBox();
         
         
         //whole THIS HAD A MENUBAR IN THE MIDDLE
-    HBox root = new HBox(healthBar, rightPane);
+HBox root = new HBox(healthBar, roomMenuBar, rightPane);
+    
+BackgroundImage myImage3= new BackgroundImage(new Image("Choose which room.png",800, 450,false, true),
+BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+BackgroundSize.DEFAULT); 
+
+BorderPane myBorderPane3 = new BorderPane();
+
+HBox bottomPane3 = new HBox(roomMenuBar);
+        //add the changing sizes and padding here**
+myBorderPane3.setBackground(new Background(myImage3));
+        
+myBorderPane3.setCenter(bottomPane3); 
+bottomPane3.setAlignment(Pos.CENTER);
+   
+    
      //   root.setSpacing(10);
        // root.setStyle("-fx-padding: 10;");
         
         //sizing of main box application*
-        return new Scene(root, 800, 450);
+        return new Scene(myBorderPane3, 800, 450);
         
     }
     //main room methods
