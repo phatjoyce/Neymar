@@ -41,6 +41,10 @@ public class Game extends Application {
         playerNeymarButton.setOnAction(e -> playerSelectAction("Neymar",3));
         
         
+        
+        
+        // HIII THIS IS CAMI
+        
         //top panel
         HBox topPane = new HBox( char1, char2, char3 );
         //add the changing sizes and padding here**
@@ -103,9 +107,45 @@ public class Game extends Application {
     private void characterSaveAction(String name){
         //create change variable of saved, declare variable at top
         //savedChar = name;
-        primaryStage.setScene(playerSelectScreen()); //next screen
+        primaryStage.setScene(mainRoom()); //next screen
     }
-    //hi this is ben
+    
+    
+    // Main room screen
+    private Scene mainRoom() {
+        //texts
+        Text welcomeText = new Text("Choose who you save");
+        Text char1 = new Text("Messi");
+        Text char2 = new Text("Ronaldo");
+        
+        
+        //Top pane
+        //health points addition
+        //hbox
+        
+        
+        
+        //Left pane buttons menu
+        Button mr1 = new Button("Math Room 1");
+        Button mr2 = new Button("Math Room 2");
+        
+        VBox roomMenuBar = new VBox(mr1, mr2);
+        
+        
+        //Right pane
+        VBox rightPane = new VBox();
+        
+        
+        //whole
+        HBox root = new HBox(roomMenuBar, rightPane);
+        root.setSpacing(10);
+        root.setStyle("-fx-padding: 10;");
+        
+        //sizing of main box application*
+        return new Scene(root, 400, 300);
+        
+    }
+    
     
     
     

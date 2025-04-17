@@ -1,4 +1,10 @@
 #BlueJ package file
+<<<<<<< HEAD
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
+=======
 dependency1.from=Room
 dependency1.to=Key
 dependency1.type=UsesDependency
@@ -9,11 +15,24 @@ editor.fx.0.height=926
 editor.fx.0.width=1550
 editor.fx.0.x=-7
 editor.fx.0.y=-7
+>>>>>>> 035658fed98f230ff5e848a9ea2a7d15894e562b
 objectbench.height=92
 objectbench.width=760
 package.divider.horizontal=0.6
 package.divider.vertical=0.7991214057507987
 package.editor.height=394
+<<<<<<< HEAD
+package.editor.width=647
+package.editor.x=179
+package.editor.y=179
+package.frame.height=600
+package.frame.width=800
+package.numDependencies=0
+package.numTargets=0
+package.showExtends=true
+package.showUses=true
+project.charset=UTF-8
+=======
 package.editor.width=674
 package.editor.x=25
 package.editor.y=25
@@ -25,11 +44,14 @@ package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
 project.invoke.thread=FX
+>>>>>>> 035658fed98f230ff5e848a9ea2a7d15894e562b
 readme.height=60
 readme.name=@README
 readme.width=49
 readme.x=10
 readme.y=10
+<<<<<<< HEAD
+=======
 target1.height=70
 target1.name=Player
 target1.showInterface=false
@@ -58,3 +80,4 @@ target4.type=ClassTarget
 target4.width=120
 target4.x=80
 target4.y=170
+>>>>>>> 035658fed98f230ff5e848a9ea2a7d15894e562b
