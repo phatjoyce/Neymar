@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=Character
-comment1.params=x
-comment1.target=Character(java.lang.String)
-comment2.params=z
+comment0.target=Player
+comment1.params=x\ difficulty
+comment1.target=Player(java.lang.String,\ int)
+comment2.params=x
 comment2.target=void\ changeHealth(int)
 comment3.params=
 comment3.target=int\ getHealth()

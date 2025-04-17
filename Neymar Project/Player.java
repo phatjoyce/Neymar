@@ -1,23 +1,25 @@
 import java.util.ArrayList;
 
 
-public class Character
+public class Player
 {
     private String name;
     private int health;
     //private Room location;
-    private ArrayList<String> inventory;
+    private int difficultyLevel;
+    private ArrayList<Key> inventory;
 
-    public Character(String x){
+    public Player(String x, int difficulty){
         this.name = x;
         this.health = 3;
+        difficultyLevel = difficulty;
+        this.inventory = new ArrayList<Key>();
         //this.location = startingRoom;
-        this.inventory = new ArrayList<String>();
     }
 
     
-    public void changeHealth(int z){
-        health = health + z;
+    public void changeHealth(int x){
+        health = health + x;
     }
     /*
     public void setLocation(Room z){
@@ -34,6 +36,9 @@ public class Character
     /*
     public Room getLocation(){
         return location;
+    }
+    public Room setLocation(Room r){
+        location = r;
     }
     */
     
