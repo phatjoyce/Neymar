@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=MathRoom
+comment1.params=x\ y\ d
+comment1.target=MathRoom(java.lang.String,\ boolean,\ int)
+comment2.params=
+comment2.target=java.lang.String\ displayQuestion()
+numComments=3
