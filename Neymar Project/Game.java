@@ -13,6 +13,9 @@ import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
+import javafx.scene.layout.*;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.Background;
 
 public class Game extends Application {
     private Stage primaryStage;
@@ -25,6 +28,10 @@ public class Game extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Insert Game Name");
         primaryStage.setScene(playerSelectScreen());
+    
+        
+      
+        
         primaryStage.show();
         
         
@@ -36,16 +43,15 @@ public class Game extends Application {
     //Player Select Screen
     private Scene playerSelectScreen() {
         //first image
-        Image myImage = new Image("first.png", 400, 400, false, false);
-        ImageView ver= new ImageView();
-        ver.setImage(myImage); 
+        
+        //BackgroundImage myImage = new BackgroundImage("first.png", 800, 450, false, false);
+        //ImageView ver= new ImageView();
+        //ver.setBackground(myImage); 
         
         
         //texts
         Text welcomeText = new Text("Choose your character");
-        Text char1 = new Text("dino");
-        Text char2 = new Text("ballet");
-        Text char3 = new Text("Neymar");
+        
         
        
         
@@ -54,6 +60,9 @@ public class Game extends Application {
         Button playerDinoButton = new Button("Start Game");
         Button playerBalletButton = new Button("Start Game");
         Button playerNeymarButton = new Button("Start Game");
+        
+       
+        
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         playerDinoButton.setOnAction(e -> playerSelectAction("Dino",1));
@@ -63,22 +72,37 @@ public class Game extends Application {
         
         
         
+        
         // HIII THIS IS CAMI
         
-        //top panel
-        HBox topPane = new HBox( char1, char2, char3 );
-        //add the changing sizes and padding here**
-        
         //bottom panel
-        HBox bottomPane = new HBox( playerDinoButton, playerBalletButton, playerNeymarButton );
+        HBox bottomPane = new HBox(20, playerDinoButton, playerBalletButton, playerNeymarButton );
         //add the changing sizes and padding here**
         
+        BackgroundImage myImage= new BackgroundImage(new Image("second.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
+       
         //whole
-        VBox root = new VBox(topPane, bottomPane);
-        root.setSpacing(10);
-        root.setStyle("-fx-padding: 10;");
+        //VBox root = new VBox(bottomPane);
+        //root.setSpacing(10);
+        //root.setStyle("-fx-padding: 10;");
         
-        return new Scene(root, 400, 300);
+        
+
+        BorderPane myNewPane = new BorderPane();
+        //root.setBackground(new Background(myImage));
+        
+        
+        myNewPane.setAlignment(bottomPane, Pos.CENTER);
+
+        myNewPane.setBackground(new Background(myImage));
+        myNewPane.setCenter(bottomPane);
+
+
+        
+        return new Scene(myNewPane, 800, 450);
+
     }
     //Player Select Screen methods
     private void playerSelectAction(String name, int difficulty){
@@ -91,10 +115,22 @@ public class Game extends Application {
     
     // Choosing Messi/Ronaldo Screen
     private Scene chooseMessiRonaldoScreen() {
+        
+        //second displayed image
+        //BackgroundImage myImage2= new BackgroundImage("second.png", 800, 450, false, false);
+        //ImageView secondView= new ImageView();
+       // secondView.setBackground(myImage2); 
+        
+    
+       
+        
         //texts
         Text welcomeText = new Text("Choose who you save");
         Text char1 = new Text("Messi");
         Text char2 = new Text("Ronaldo");
+        
+        
+        
         
         //creates 3 buttons
         Button saveMessi = new Button("Messi");
@@ -111,7 +147,7 @@ public class Game extends Application {
         //add the changing sizes and padding here**
         
         //bottom panel
-        HBox bottomPane = new HBox( saveMessi, saveRonaldo );
+        HBox bottomPane = new HBox( 20, saveMessi, saveRonaldo );
         //add the changing sizes and padding here**
         
         
@@ -127,7 +163,43 @@ public class Game extends Application {
     private void characterSaveAction(String name){
         //create change variable of saved, declare variable at top
         //savedChar = name;
-        primaryStage.setScene(playerSelectScreen()); //next screen
+        primaryStage.setScene(mainRoom()); //next screen
+    }
+    
+    
+    // Main room screen
+    private Scene mainRoom() {
+        //texts
+        Text welcomeText = new Text("Choose who you save");
+        Text char1 = new Text("Messi");
+        Text char2 = new Text("Ronaldo");
+        
+        
+        //Top pane
+        //health points addition
+        //hbox
+        
+        
+        
+        //Left pane buttons menu
+        Button mr1 = new Button("Math Room 1");
+        Button mr2 = new Button("Math Room 2");
+        
+        VBox roomMenuBar = new VBox(20, mr1, mr2);
+        
+        
+        //Right pane
+        VBox rightPane = new VBox();
+        
+        
+        //whole
+        HBox root = new HBox(roomMenuBar, rightPane);
+        root.setSpacing(10);
+        root.setStyle("-fx-padding: 10;");
+        
+        //sizing of main box application*
+        return new Scene(root, 400, 300);
+        
     }
     
     
@@ -139,6 +211,8 @@ public class Game extends Application {
         launch();
     }
 }
+
+
 
     //String playerSaved;
     
