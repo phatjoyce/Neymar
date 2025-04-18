@@ -18,7 +18,8 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Background;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
 
 public class Game extends Application {
     private Stage primaryStage;
@@ -68,6 +69,11 @@ public class Game extends Application {
         Button playerDinoButton = new Button("Start Game");
         Button playerBalletButton = new Button("Start Game");
         Button playerNeymarButton = new Button("Start Game");
+        
+        playerDinoButton.setPadding(new Insets(30,20,10,10));
+        playerBalletButton.setPadding(new Insets(30,20,10,10));
+        playerNeymarButton.setPadding(new Insets(30,20,10,10));
+        
     
 
         
@@ -146,6 +152,8 @@ public class Game extends Application {
         //creates 3 buttons
         Button saveMessi = new Button("Messi");
         Button saveRonaldo = new Button("Ronaldo");
+        saveMessi.setPadding(new Insets(30,20,10,10));
+        saveRonaldo.setPadding(new Insets(30,20,10,10));
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         saveMessi.setOnAction(e -> characterSaveAction("Messi"));
@@ -207,13 +215,15 @@ public class Game extends Application {
         
         
         //Left pane buttons menu
-        Button mr1 = new Button("Math Room 1");
-        Button mr2 = new Button("Math Room 2");
+        Button mr1 = new Button("Easy Room 1");
+        Button mr2 = new Button("Difficul Room 2");
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
     HBox roomMenuBar = new HBox(20, mr1, mr2);
     mr1.setOnAction(e -> createMathRoom("m1"));
     mr2.setOnAction(e -> createMathRoom("m2"));
 //VBox roomMenuBar = new VBox(mr1, mr2);        
+        mr1.setPadding(new Insets(30,20,10,10));
+        mr2.setPadding(new Insets(30,20,10,10));
         
         //Right pane
         VBox rightPane = new VBox();
@@ -262,6 +272,9 @@ public class Game extends Application {
         Button saveMessi = new Button("replay");
         Button saveRonaldo = new Button("Next Game");
 
+        saveMessi.setPadding(new Insets(30,20,10,10));
+        saveRonaldo.setPadding(new Insets(30,20,10,10));
+        
         //set all buttons to lead to "chooseMessiRonaldo" screen
         saveMessi.setOnAction(e -> mathRoomReset(m));
         
@@ -342,7 +355,18 @@ public class Game extends Application {
         
         //creates 3 buttons
         Button puzzleRoom1 = new Button("Check answers");
+        puzzleRoom1.setPadding(new Insets(30,20,10,10)); 
         
+        TextField field1 = new TextField();
+        TextField field2 = new TextField();
+        TextField field3 = new TextField();
+        
+        
+    
+        field1.setPrefColumnCount(5);
+        
+        field2.setPrefColumnCount(5);
+        field3.setPrefColumnCount(5);
         
         
 
@@ -358,18 +382,37 @@ public class Game extends Application {
         
         BorderPane myNewPane4 = new BorderPane();
         
+        
         //bottom panel
-        HBox bottomPane3 = new HBox( 95,puzzleRoom1  );
+        HBox bottomPane3 = new HBox( 95,puzzleRoom1 );
         bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
         //add the changing sizes and padding here**
         myNewPane4.setBackground(new Background(myImage2));
         
-        myNewPane4.setCenter(bottomPane3);
+        myNewPane4.setBottom(bottomPane3);
+        
+        VBox fieldsBox = new VBox(5);
+        fieldsBox.getChildren().addAll(field1, field2, field3);
+        fieldsBox.setPrefWidth(20);
+      //  fieldsBox.setAlignment(Pos.CENTER_LEFT);
+        myNewPane4.setCenter(fieldsBox);
+        
+        field1.setMaxWidth(150);
+        field2.setMaxWidth(150);
+        field3.setMaxWidth(150);
+        
+       // fieldsBox.setPadding(new Insets(20, 50, 0, 0));
+       BorderPane.setMargin(fieldsBox, new Insets(210, 0, 0, 450));
+        
+  //get text on each of the field values
         
     
         return new Scene(myNewPane4, 800, 450);
         
         //sizing of main box application*
+        
+        
+        
         
     }
     
