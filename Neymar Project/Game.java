@@ -210,9 +210,9 @@ public class Game extends Application {
         Button mr1 = new Button("Math Room 1");
         Button mr2 = new Button("Math Room 2");
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
-HBox roomMenuBar = new HBox(20, mr1, mr2);
-mr1.setOnAction(e -> createMathRoom("m1"));
-mr2.setOnAction(e -> createMathRoom("m2"));
+    HBox roomMenuBar = new HBox(20, mr1, mr2);
+    mr1.setOnAction(e -> createMathRoom("m1"));
+    mr2.setOnAction(e -> createMathRoom("m2"));
 //VBox roomMenuBar = new VBox(mr1, mr2);        
         
         //Right pane
@@ -220,20 +220,20 @@ mr2.setOnAction(e -> createMathRoom("m2"));
         
         
         //whole THIS HAD A MENUBAR IN THE MIDDLE
-HBox root = new HBox(healthBar, roomMenuBar, rightPane);
+    HBox root = new HBox(healthBar, roomMenuBar, rightPane);
     
-BackgroundImage myImage3= new BackgroundImage(new Image("Choose which room.png",800, 450,false, true),
-BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-BackgroundSize.DEFAULT); 
+    BackgroundImage myImage3= new BackgroundImage(new Image("Choose which room.png",800, 450,false, true),
+    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+    BackgroundSize.DEFAULT); 
 
-BorderPane myBorderPane3 = new BorderPane();
+    BorderPane myBorderPane3 = new BorderPane();
 
-HBox bottomPane3 = new HBox(roomMenuBar);
+    HBox bottomPane3 = new HBox(roomMenuBar);
         //add the changing sizes and padding here**
-myBorderPane3.setBackground(new Background(myImage3));
+    myBorderPane3.setBackground(new Background(myImage3));
         
-myBorderPane3.setCenter(bottomPane3); 
-bottomPane3.setAlignment(Pos.CENTER);
+    myBorderPane3.setCenter(bottomPane3); 
+    bottomPane3.setAlignment(Pos.CENTER);
    
     
      //   root.setSpacing(10);
@@ -259,12 +259,14 @@ bottomPane3.setAlignment(Pos.CENTER);
         Text char2 = new Text("Ronaldo");
         
         //creates 3 buttons
-        Button saveMessi = new Button("test");
-        Button saveRonaldo = new Button("set");
+        Button saveMessi = new Button("replay");
+        Button saveRonaldo = new Button("Next Game");
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         saveMessi.setOnAction(e -> mathRoomReset(m));
-        saveRonaldo.setOnAction(e -> mathRoomReset(m));
+        
+        
+        saveRonaldo.setOnAction(e -> createPuzzleRoom("p1"));
         
         
         //top panel
@@ -291,7 +293,85 @@ bottomPane3.setAlignment(Pos.CENTER);
         primaryStage.setScene(mainRoom()); //next screen
     }
     
+    private Scene PuzzleRoomScreen() {
     
+        
+        //creates 3 buttons
+        Button puzzleRoom1 = new Button("Play Puzzles Now");
+
+        //set all buttons to lead to "chooseMessiRonaldo" screen
+        puzzleRoom1.setOnAction(e -> createPuzzleRoom("p1"));
+        
+        
+        BackgroundImage myImage2= new BackgroundImage(new Image("third.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);        
+        
+        
+        BorderPane myNewPane4 = new BorderPane();
+        
+        //bottom panel
+        HBox bottomPane3 = new HBox( 95,puzzleRoom1  );
+        bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
+        //add the changing sizes and padding here**
+        myNewPane4.setBackground(new Background(myImage2));
+        
+        myNewPane4.setCenter(bottomPane3);
+        
+    
+        return new Scene(myNewPane4, 800, 450);
+        
+    }
+    
+    
+    
+    //puzzle room methods
+
+        private void createPuzzleRoom(String name){
+        //make new instance of room
+        puzzleRoom p1 = new puzzleRoom(name, true, difficultyLevel);
+        
+        //move to room
+        primaryStage.setScene(PuzzleRoomScene(p1));
+    }
+
+    
+    private Scene PuzzleRoomScene(puzzleRoom p) {
+        //texts
+        Text welcomeText = new Text("Play");
+        
+        //creates 3 buttons
+        Button puzzleRoom1 = new Button("Check answers");
+        
+        
+        
+
+        //set all buttons to lead to "chooseMessiRonaldo" screen
+        puzzleRoom1.setOnAction(e -> createPuzzleRoom("p1"));
+        
+  //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
+        HBox roomPuzzle = new HBox(20, puzzleRoom1);
+   
+        BackgroundImage myImage2= new BackgroundImage(new Image("players.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT); 
+        
+        BorderPane myNewPane4 = new BorderPane();
+        
+        //bottom panel
+        HBox bottomPane3 = new HBox( 95,puzzleRoom1  );
+        bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
+        //add the changing sizes and padding here**
+        myNewPane4.setBackground(new Background(myImage2));
+        
+        myNewPane4.setCenter(bottomPane3);
+        
+    
+        return new Scene(myNewPane4, 800, 450);
+        
+        //sizing of main box application*
+        
+    }
     
     
     //launch
