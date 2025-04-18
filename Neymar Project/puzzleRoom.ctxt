@@ -3,4 +3,6 @@ comment0.target=puzzleRoom
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ puzzleRoom\ here.\r\n\ \r\n\ @author\ \r\n\ @version\r\n
 comment1.params=x\ k\ difficultyLevel
 comment1.target=puzzleRoom(java.lang.String,\ boolean,\ int)
-numComments=2
+comment2.params=answer
+comment2.target=java.lang.String\ checkAnswer(java.lang.String)
+numComments=3
