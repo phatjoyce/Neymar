@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class Room
+public class Room 
 {
     protected String name; //im changing this to protected to give it access to puzzleroom
     protected String description;

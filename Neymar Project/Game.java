@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
 
+
 public class Game extends Application {
     private Stage primaryStage;
     private int tabWidth = 800;
@@ -310,7 +311,7 @@ public class Game extends Application {
     
         
         //creates 3 buttons
-        Button puzzleRoom1 = new Button("Play Puzzles Now");
+        Button puzzleRoom1 = new Button("Check answers");
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         puzzleRoom1.setOnAction(e -> createPuzzleRoom("p1"));
@@ -330,6 +331,9 @@ public class Game extends Application {
         myNewPane4.setBackground(new Background(myImage2));
         
         myNewPane4.setCenter(bottomPane3);
+        
+        
+        
         
     
         return new Scene(myNewPane4, 800, 450);
@@ -354,29 +358,70 @@ public class Game extends Application {
         Text welcomeText = new Text("Play");
         
         //creates 3 buttons
-        Button puzzleRoom1 = new Button("Check answers");
-        puzzleRoom1.setPadding(new Insets(30,20,10,10)); 
+        Button checkButton = new Button("Check answers");
+        checkButton.setPadding(new Insets(30,20,10,10)); 
         
         TextField field1 = new TextField();
         TextField field2 = new TextField();
         TextField field3 = new TextField();
         
-        
-    
         field1.setPrefColumnCount(5);
         
         field2.setPrefColumnCount(5);
         field3.setPrefColumnCount(5);
         
+        TextField[] fields = {field1,field2,field3};
         
+       
+    
+        
+        Label result = new Label();
+        
+        
+        
+        checkButton.setOnAction(e -> {  
+            boolean allCorrect = true;
+           
+            
+            for (int i = 0; i < fields.length; i++) {
+                String userAnswer= fields[i].getText().toLowerCase();
+                boolean isCorrect= p.getCorrectAnswers().contains(userAnswer);
+        
+        //checking each field
+        
+        //for (int j = 0; j < p.getCorrectAnswers().size(); j++) {
+         //   if (userAnswer.equals(p.getCorrectAnswers().get(j))) {
+         //       isCorrect = true;
+          //      break;
+          //  }
+       // }
+        if (!isCorrect) {
+            fields[i].setText("");
+            fields[i].setStyle("-fx-border-color: red;");
+            
+            
+            allCorrect= false;
+            
+    
+        } else {
+            lockCorrectField(fields[i]);
+            
+        
+        }
+    }
+        showResult(allCorrect, result);
+    
+
+    });
+
+      
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
-        puzzleRoom1.setOnAction(e -> createPuzzleRoom("p1"));
         
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
-        HBox roomPuzzle = new HBox(20, puzzleRoom1);
+        HBox roomPuzzle = new HBox(20, checkButton);
    
-        BackgroundImage myImage2= new BackgroundImage(new Image("players.png",800, 450,false, true),
+        BackgroundImage myImage2= new BackgroundImage(new Image("puzzleRoomPicture.png",800, 450,false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
         BackgroundSize.DEFAULT); 
         
@@ -384,7 +429,7 @@ public class Game extends Application {
         
         
         //bottom panel
-        HBox bottomPane3 = new HBox( 95,puzzleRoom1 );
+        HBox bottomPane3 = new HBox( 95,checkButton );
         bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
         //add the changing sizes and padding here**
         myNewPane4.setBackground(new Background(myImage2));
@@ -397,12 +442,20 @@ public class Game extends Application {
       //  fieldsBox.setAlignment(Pos.CENTER_LEFT);
         myNewPane4.setCenter(fieldsBox);
         
+        
+        HBox resultLabel = new HBox(result);
+        resultLabel.setAlignment(Pos.TOP_CENTER);
+        resultLabel.setPadding(new Insets(0));
+        
+        myNewPane4.setTop(resultLabel);
+        
         field1.setMaxWidth(150);
         field2.setMaxWidth(150);
         field3.setMaxWidth(150);
         
        // fieldsBox.setPadding(new Insets(20, 50, 0, 0));
-       BorderPane.setMargin(fieldsBox, new Insets(210, 0, 0, 450));
+      
+       BorderPane.setMargin(fieldsBox, new Insets(220, 0, 0, 480));
         
   //get text on each of the field values
         
@@ -415,8 +468,43 @@ public class Game extends Application {
         
         
     }
+    private void resetField (TextField[] fields){
+       for (int i= 0; i< fields.length; i++){
+            fields[i].setStyle("");
+        }
     
+}
+    private boolean validateFields(puzzleRoom p, TextField[] fields){
+        boolean fullCorrectAnswers = true;
+        for (int i = 0; i<fields.length; i++){
+            String userAnswer = fields[i].getText().toLowerCase();
+            if (!p.getCorrectAnswers().contains(userAnswer)){
+                fullCorrectAnswers= false;
+                fields[i].setStyle("-fx-text-fill: red;");
+            }else{
+                fields[i].setStyle("-fx-text-fill: green;");
+                return fullCorrectAnswers;
+            }
+            }
+            return fullCorrectAnswers;
+        }
+        
     
+    private void showResult(boolean allCorrect, Label result){
+        if (allCorrect){
+            result.setText("Congratulations. All answers are correct");
+            result.setStyle("-fx-text-fill: green;-fx-font-size: 20px; -fx-font-weight: bold;");
+        } else{
+            result.setText("Some answers are not correct. Try again in the red box!");
+            result.setStyle("-fx-text-fill: red; -fx-font-size: 20px; -fx-font-weight: bold;");
+
+        }
+        }
+    
+    private void lockCorrectField(TextField field){
+        field.setEditable(false);
+        field.setStyle(("-fx-border-color: green;"));
+    }
     //launch
     public static void main(String[] args) {
         launch();
