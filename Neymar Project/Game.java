@@ -355,11 +355,14 @@ public class Game extends Application {
     
     private Scene PuzzleRoomScene(puzzleRoom p) {
         //texts
-        Text welcomeText = new Text("Play");
         
         //creates 3 buttons
         Button checkButton = new Button("Check answers");
         checkButton.setPadding(new Insets(30,20,10,10)); 
+        
+        Button nextGame = new Button("Next Puzzle");
+        nextGame.setPadding(new Insets(30,40,10,10)); 
+        nextGame.setVisible(false);
         
         TextField field1 = new TextField();
         TextField field2 = new TextField();
@@ -405,6 +408,7 @@ public class Game extends Application {
     
         } else {
             lockCorrectField(fields[i]);
+            nextGame.setVisible(true);
             
         
         }
@@ -419,7 +423,7 @@ public class Game extends Application {
         //set all buttons to lead to "chooseMessiRonaldo" screen
         
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
-        HBox roomPuzzle = new HBox(20, checkButton);
+        HBox roomPuzzle = new HBox(90, checkButton);
    
         BackgroundImage myImage2= new BackgroundImage(new Image("puzzleRoomPicture.png",800, 450,false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -429,7 +433,7 @@ public class Game extends Application {
         
         
         //bottom panel
-        HBox bottomPane3 = new HBox( 95,checkButton );
+        HBox bottomPane3 = new HBox( 95,checkButton, nextGame);
         bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
         //add the changing sizes and padding here**
         myNewPane4.setBackground(new Background(myImage2));
