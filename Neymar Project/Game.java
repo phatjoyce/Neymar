@@ -468,13 +468,8 @@ public class Game extends Application {
         
         
     }
-    private void resetField (TextField[] fields){
-       for (int i= 0; i< fields.length; i++){
-            fields[i].setStyle("");
-        }
-    
-}
-    private boolean validateFields(puzzleRoom p, TextField[] fields){
+
+    private boolean CheckFields(puzzleRoom p, TextField[] fields){
         boolean fullCorrectAnswers = true;
         for (int i = 0; i<fields.length; i++){
             String userAnswer = fields[i].getText().toLowerCase();
