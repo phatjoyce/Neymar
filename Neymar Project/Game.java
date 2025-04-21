@@ -32,6 +32,9 @@ public class Game extends Application {
     private int difficultyLevel;
     private riddleRoom currentRiddleRoom;
     
+    private boolean mathCompleted = false;
+    private boolean puzzleCompleted = false;
+    private boolean riddleCompleted = false;
 
     @Override
     //starting code that the launch() starts
@@ -224,6 +227,7 @@ public class Game extends Application {
         
         riddles.setOnAction(e -> primaryStage.setScene(riddleRoomScreen()));
         
+        
         puzzles.setOnAction(e -> primaryStage.setScene(PuzzleRoomScreen()));
         //top panel
         HBox topPane = new HBox( 10, Math, riddles, puzzles );
@@ -326,6 +330,11 @@ public class Game extends Application {
         //creates 3 buttons
         Button saveMessi = new Button("replay");
         Button saveRonaldo = new Button("Next Game");
+        Button finishGame= new Button("Play other Games");
+        finishGame.setPadding(new Insets(10,30,10,10)); 
+        
+        finishGame.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
+        
 
         saveMessi.setPadding(new Insets(30,20,10,10));
         saveRonaldo.setPadding(new Insets(30,20,10,10));
@@ -342,7 +351,7 @@ public class Game extends Application {
         //add the changing sizes and padding here**
         
         //bottom panel
-        HBox bottomPane = new HBox( saveMessi, saveRonaldo );
+        HBox bottomPane = new HBox( 10, saveMessi, saveRonaldo, finishGame);
         //add the changing sizes and padding here**
         
         
@@ -365,13 +374,13 @@ public class Game extends Application {
     
         
         //creates 3 buttons
-        Button puzzleRoom1 = new Button("Check answers");
+        Button puzzleRoom1 = new Button("START NOW");
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         puzzleRoom1.setOnAction(e -> createPuzzleRoom("p1"));
         
         
-        BackgroundImage myImage2= new BackgroundImage(new Image("third.png",800, 450,false, true),
+        BackgroundImage myImage2= new BackgroundImage(new Image("Go.png",800, 450,false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
         BackgroundSize.DEFAULT);        
         
@@ -414,9 +423,9 @@ public class Game extends Application {
         Button checkButton = new Button("Check answers");
         checkButton.setPadding(new Insets(30,20,10,10)); 
         
-        Button nextGame = new Button("Next Game");
+        Button nextGame = new Button("Play other games");
         nextGame.setPadding(new Insets(30,40,10,10)); 
-        nextGame.setVisible(false);
+        nextGame.setVisible(true);
  
         TextField field1 = new TextField();
         TextField field2 = new TextField();
@@ -439,24 +448,26 @@ public class Game extends Application {
         checkButton.setOnAction(e -> {  
             boolean allCorrect = true;
            
-            nextGame.setVisible(false);
+            nextGame.setVisible(true);
 
             for (int i = 0; i < fields.length; i++) {
                 String userAnswer= fields[i].getText().toLowerCase();
                 boolean isCorrect= p.getCorrectAnswers().contains(userAnswer);
         
-                nextGame.setVisible(false);
+                nextGame.setVisible(true);
 
         if (!isCorrect) {
             fields[i].setText("");
             fields[i].setStyle("-fx-border-color: red;");
-            nextGame.setVisible(false);
+            nextGame.setVisible(true);
             allCorrect= false;
             
     
         } else {
             lockCorrectField(fields[i]);
             nextGame.setVisible(true);
+            puzzleCompleted= true;
+            checkGameCompletion(); 
             
         
         }
@@ -474,6 +485,12 @@ public class Game extends Application {
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         
+        nextGame.setVisible(true);
+        
+        nextGame.setPadding(new Insets(10,30,10,10)); 
+        
+        nextGame.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
+        
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
         HBox roomPuzzle = new HBox(90, checkButton);
    
@@ -485,7 +502,7 @@ public class Game extends Application {
         
         
         //bottom panel
-        HBox bottomPane3 = new HBox( 95,checkButton, nextGame);
+        HBox bottomPane3 = new HBox( 70,checkButton, nextGame);
         bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
         //add the changing sizes and padding here**
         myNewPane4.setBackground(new Background(myImage2));
@@ -571,11 +588,18 @@ public class Game extends Application {
         
         //startGame.setOnAction(e -> createRiddleRoom("r1"));    
         Button riddleRoom = new Button("Check answer");
+        Button finishGames = new Button("Finish the rest of the games");
         
         HBox bottomPane = new HBox(riddleRoom);
+        Button finishGame= new Button("End Game");
+        finishGames.setVisible(true);
         
+       
         bottomPane.setAlignment(Pos.BOTTOM_CENTER);
         riddleRoom.setPadding(new Insets(10,30,10,10)); 
+        finishGames.setPadding(new Insets(10,30,10,10)); 
+        
+        finishGames.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
         
 
         //set all buttons to lead to "riddle Room" screen
@@ -606,7 +630,7 @@ public class Game extends Application {
         
       // myNewPane4.setCenter(bottomPane3);
         
-        VBox bottomPane3 = new VBox(20,field1, riddleRoom  );
+        VBox bottomPane3 = new VBox(25,field1, riddleRoom, finishGames );
          bottomPane3.setAlignment(Pos.CENTER);
          //add the changing sizes and padding here**
          myNewPane4.setBackground(new Background(myImage2));
@@ -614,7 +638,7 @@ public class Game extends Application {
          myNewPane4.setCenter(bottomPane3);
          myNewPane4.setBottom(resultLabel);
      
-    bottomPane3.setPadding(new Insets(180, 0, 0, 0)); 
+    bottomPane3.setPadding(new Insets(245, 0, 0, 0)); 
          field1.setMaxWidth(150);
  
         
@@ -625,11 +649,14 @@ public class Game extends Application {
         String userInput = field1.getText().toLowerCase();
 
         boolean isCorrect = userInput.equals(correctAnswer.toLowerCase());
-
+        finishGame.setVisible(false);
         if (isCorrect) {
             field1.setStyle("-fx-border-color: green;");
             result.setText("Congratulations. The answer is correct");
             result.setStyle("-fx-text-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
+            finishGame.setVisible(false);
+            puzzleCompleted= true;
+            checkGameCompletion(); 
         } else {
             field1.setStyle("-fx-border-color: red;");
             result.setText("Try again in the red box!");
@@ -735,6 +762,34 @@ public boolean checkAnswer(TextField userAnswerField, riddleRoom riddle) {
 }
 //Room to give them the option to choose where to start 
 
+//this isnt working yet. Not sure if we wanna dd it
+
+private Scene victoryScene() {
+    Label congrats = new Label("?You won! You saved " + characterSaved + "!");
+    congrats.setStyle("-fx-font-size: 30px; -fx-text-fill: green; -fx-font-weight: bold;");
+
+    Button playAgain = new Button("Play Again");
+    playAgain.setOnAction(e -> resetGame());
+
+    VBox design = new VBox(50, congrats, playAgain);
+    design.setAlignment(Pos.CENTER);
+
+
+    return new Scene(design, 800, 450);
+}
+private void resetGame() {
+    mathCompleted = false;
+    puzzleCompleted = false;
+    riddleCompleted = false;
+    characterSaved = null;
+
+    primaryStage.setScene(playerSelectScreen());
+}
+private void checkGameCompletion(){
+    if (puzzleCompleted && riddleCompleted) {
+        primaryStage.setScene(victoryScene());
+    }
+}
 
     //launch
     public static void main(String[] args) {
