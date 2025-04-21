@@ -6,7 +6,7 @@ public class Player
     private String name;
     private int health;
     //private Room location;
-    //private ArrayList<Key> inventory;
+    private int inventory;
 
     public Player(String x){
         this.name = x;

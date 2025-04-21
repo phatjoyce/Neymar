@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
+import java.util.ArrayList;
 
 
 public class Game extends Application {
@@ -29,6 +30,7 @@ public class Game extends Application {
 
     private String characterSaved;
     private int difficultyLevel;
+    private riddleRoom currentRiddleRoom;
     
 
     @Override
@@ -333,12 +335,12 @@ public class Game extends Application {
         myNewPane4.setCenter(bottomPane3);
         
         
-        
-        
     
-        return new Scene(myNewPane4, 800, 450);
         
-    }
+        
+        
+    return new Scene(myNewPane4, 800, 450);
+}
     
     
     
@@ -360,10 +362,10 @@ public class Game extends Application {
         Button checkButton = new Button("Check answers");
         checkButton.setPadding(new Insets(30,20,10,10)); 
         
-        Button nextGame = new Button("Next Puzzle");
+        Button nextGame = new Button("Next Game");
         nextGame.setPadding(new Insets(30,40,10,10)); 
         nextGame.setVisible(false);
-        
+ 
         TextField field1 = new TextField();
         TextField field2 = new TextField();
         TextField field3 = new TextField();
@@ -401,8 +403,7 @@ public class Game extends Application {
         if (!isCorrect) {
             fields[i].setText("");
             fields[i].setStyle("-fx-border-color: red;");
-            
-            
+            nextGame.setVisible(false);
             allCorrect= false;
             
     
@@ -418,7 +419,11 @@ public class Game extends Application {
 
     });
 
-      
+             
+        nextGame.setOnAction(e -> { 
+            primaryStage.setScene(riddleRoomScreen());
+    
+    });
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
         
@@ -463,15 +468,10 @@ public class Game extends Application {
         
   //get text on each of the field values
         
-    
-        return new Scene(myNewPane4, 800, 450);
         
-        //sizing of main box application*
-        
-        
-        
-        
-    }
+   return new Scene(myNewPane4, 800, 450); 
+   
+}
 
     private boolean CheckFields(puzzleRoom p, TextField[] fields){
         boolean fullCorrectAnswers = true;
@@ -504,12 +504,224 @@ public class Game extends Application {
         field.setEditable(false);
         field.setStyle(("-fx-border-color: green;"));
     }
+    
+    //riddle room
+    private Scene riddleRoomScreen() {
+    
+        
+        //creates 3 buttons
+        //Button startGame = new Button("Next Game");
+        
+        //startGame.setOnAction(e -> createRiddleRoom("r1"));    
+        Button riddleRoom = new Button("Check answer");
+        
+        HBox bottomPane = new HBox(riddleRoom);
+        
+        bottomPane.setAlignment(Pos.BOTTOM_CENTER);
+        
+
+        //set all buttons to lead to "riddle Room" screen
+        
+        
+        
+        
+        
+        
+        BackgroundImage myImage2= new BackgroundImage(new Image("riddleRoom.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);        
+        
+        
+        BorderPane myNewPane4 = new BorderPane();
+        
+        
+        TextField field1 = new TextField();
+        //VBox fieldsBox = new VBox(5);
+       // fieldsBox.getChildren().addAll(field1);
+        field1.setPrefWidth(20);
+      //  fieldsBox.setAlignment(Pos.CENTER_LEFT);
+        //bottom panel
+        VBox bottomPane3 = new VBox(95,field1, riddleRoom  );
+        bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
+        //add the changing sizes and padding here**
+        myNewPane4.setBackground(new Background(myImage2));
+        
+        myNewPane4.setCenter(bottomPane3);
+        
+        field1.setMaxWidth(150);
+
+        BorderPane.setMargin(field1, new Insets(220, 0, 0, 480));
+        
+  //get text on each of the field values
+  
+  
+      
+      //checking field values
+      riddleRoom.setOnAction(e -> {
+    String userInput = field1.getText(); 
+    boolean isCorrect = checkAnswer(field1,currentRiddleRoom);
+    
+    if (isCorrect) {
+        field1.setStyle("-fx-border-color: green;");
+    } else {
+        field1.setStyle("-fx-border-color: red;");
+    }
+});
+      
+    
+        return new Scene(myNewPane4, 800, 450);
+        
+        
+    
+       
+        
+    }
+    
+    
+    
+    //puzzle room methods
+
+        private void createRiddleRoom(String name){
+        //make new instance of room
+        riddleRoom r1 = new riddleRoom(name, true, difficultyLevel);
+        
+        //move to room
+        primaryStage.setScene(RiddleRoomScene(r1));
+    }
+
+    
+    private Scene RiddleRoomScene(riddleRoom r) {
+     
+       
+        Button startGame = new Button("Next Game");
+        
+        startGame.setOnAction(e -> createRiddleRoom("r1")); 
+        Button nextGame = new Button("Save your player now");
+        nextGame.setPadding(new Insets(30,40,10,10)); 
+        nextGame.setVisible(false);
+        
+        TextField field1 = new TextField();
+        TextField field2 = new TextField();
+        TextField field3 = new TextField();
+        
+        field1.setPrefColumnCount(5);
+        
+        field2.setPrefColumnCount(5);
+        field3.setPrefColumnCount(5);
+        
+        TextField[] fields = {field1,field2,field3};
+        
+       
+    
+        
+        Label result = new Label();
+        
+        
+        
+        /*checkButton.setOnAction(e -> {  
+            boolean allCorrect = true;
+           
+            
+            for (int i = 0; i < fields.length; i++) {
+                String userAnswer= fields[i].getText().toLowerCase();
+                boolean isCorrect= p.getCorrectAnswers().contains(userAnswer);
+        
+        //checking each field
+        
+        //for (int j = 0; j < p.getCorrectAnswers().size(); j++) {
+         //   if (userAnswer.equals(p.getCorrectAnswers().get(j))) {
+         //       isCorrect = true;
+          //      break;
+          //  }
+       // }
+        if (!isCorrect) {
+            fields[i].setText("");
+            fields[i].setStyle("-fx-border-color: red;");
+            nextGame.setVisible(false);
+            allCorrect= false;
+            
+    
+        } else {
+            lockCorrectField(fields[i]);
+            nextGame.setVisible(true);
+            
+        
+        }
+    }
+        showResult(allCorrect, result);
+    
+
+    });
+**/
+      
+
+        //set all buttons to lead to "chooseMessiRonaldo" screen
+        
+  //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
+       // HBox roomPuzzle = new HBox(90, checkButton);
+   
+        BackgroundImage myImage2= new BackgroundImage(new Image("riddleRoom.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT); 
+        
+        BorderPane myNewPane4 = new BorderPane();
+        
+        
+        //bottom panel
+       // HBox bottomPane3 = new HBox( 95,checkButton, nextGame);
+       // bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
+        //add the changing sizes and padding here**
+        myNewPane4.setBackground(new Background(myImage2));
+        
+       // myNewPane4.setBottom(bottomPane3);
+        
+        VBox fieldsBox = new VBox(5);
+        fieldsBox.getChildren().addAll(field1, field2, field3);
+        fieldsBox.setPrefWidth(20);
+      //  fieldsBox.setAlignment(Pos.CENTER_LEFT);
+        myNewPane4.setCenter(fieldsBox);
+        
+        
+        HBox resultLabel = new HBox(result);
+        resultLabel.setAlignment(Pos.TOP_CENTER);
+        resultLabel.setPadding(new Insets(0));
+        
+        myNewPane4.setTop(resultLabel);
+        
+  
+        
+       // fieldsBox.setPadding(new Insets(20, 50, 0, 0));
+      
+       BorderPane.setMargin(field1, new Insets(220, 0, 0, 480));
+        
+  //get text on each of the field values
+  
+  
+  
+  
+    
+        return new Scene(myNewPane4, 800, 450);
+        
+        //sizing of main box application*
+        
+       
+    }
+    
+public boolean checkAnswer(TextField userAnswerField, riddleRoom riddle) {
+ 
+    String userAnswer = userAnswerField.getText().toLowerCase();
+    
+ 
+    return userAnswer.equals("mirror");
+}
+
+
     //launch
     public static void main(String[] args) {
         launch();
     }
-}
 
+}
 
 
     //String playerSaved;
