@@ -87,9 +87,9 @@ public class Game extends Application {
         
 
         //set all buttons to lead to "chooseMessiRonaldo" screen
-        playerDinoButton.setOnAction(e -> playerSelectAction("Dino",1));
-        playerBalletButton.setOnAction(e -> playerSelectAction("Ballet",2));
-        playerNeymarButton.setOnAction(e -> playerSelectAction("Neymar",3));
+        playerDinoButton.setOnAction(e -> playerSelectAction("Dino",0));
+        playerBalletButton.setOnAction(e -> playerSelectAction("Ballet",1));
+        playerNeymarButton.setOnAction(e -> playerSelectAction("Neymar",2));
         
         
         
@@ -830,7 +830,7 @@ private Scene victoryScene() {
     Label congrats = new Label("You won! You saved " + characterSaved + "!");
     congrats.setStyle("-fx-font-size: 30px; -fx-text-fill: green; -fx-font-weight: bold;");
     
-    BackgroundImage myImage2= new BackgroundImage(new Image("last.png",800, 450,false, true),
+    BackgroundImage myImage2= new BackgroundImage(new Image("lastmaybe.jpg",800, 450,false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
         BackgroundSize.DEFAULT);  
     
