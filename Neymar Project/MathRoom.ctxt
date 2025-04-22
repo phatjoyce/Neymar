@@ -4,4 +4,6 @@ comment1.params=x\ y\ d
 comment1.target=MathRoom(java.lang.String,\ boolean,\ int)
 comment2.params=
 comment2.target=java.lang.String\ displayQuestion()
-numComments=3
+comment3.params=ans
+comment3.target=boolean\ checkAnswer(int)
+numComments=4

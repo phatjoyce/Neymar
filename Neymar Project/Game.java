@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
 import java.util.ArrayList;
+import javafx.scene.paint.Color;
 
 
 public class Game extends Application {
@@ -32,6 +33,7 @@ public class Game extends Application {
     private int difficultyLevel;
     private riddleRoom currentRiddleRoom;
     
+    private int mathCount = 0;
     private boolean mathCompleted = false;
     private boolean puzzleCompleted = false;
     private boolean riddleCompleted = false;
@@ -323,7 +325,7 @@ public class Game extends Application {
     //gui for math room
     private Scene mathRoomScene(MathRoom m) {
         
-       Button mathRoom = new Button("Check answer");
+        Button mathRoom = new Button("Check answer");
         Button finishGames = new Button("Finish the rest of the games");
         
         HBox bottomPane = new HBox(mathRoom);
@@ -336,71 +338,77 @@ public class Game extends Application {
         finishGames.setPadding(new Insets(10,30,10,10)); 
         finishGames.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
         
-
-        //set all buttons to lead to "riddle Room" screen
         
-        BackgroundImage myImage2= new BackgroundImage(new Image("riddleRoom.png",800, 450,false, true),
+        BackgroundImage myImage2= new BackgroundImage(new Image("mathRoom.png",800, 450,false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
         BackgroundSize.DEFAULT);        
         
         BorderPane myNewPane4 = new BorderPane();
         
-           Label result = new Label("Enter one word only");
+        Label result = new Label("Enter one word only");
         result.setStyle("-fx-font-size: 20px;");
-         result.setAlignment(Pos.BOTTOM_CENTER);
-         
-         
-         
-         //here neds edits
-      String correctAnswer= "mirror";
-      
-      
+        result.setAlignment(Pos.BOTTOM_CENTER);
+        
         TextField field1 = new TextField();
-       
         field1.setPrefWidth(20);
         HBox resultLabel= new HBox(result);
-        //VBox bottomPane3 = new VBox(95, topPane1, field1, riddleRoom  );
         resultLabel.setAlignment(Pos.BOTTOM_CENTER);
         resultLabel.setPadding(new Insets(0));
-     ///   bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
         
-      // myNewPane4.setCenter(bottomPane3);
         
-        VBox bottomPane3 = new VBox(25,field1, mathRoom, finishGames );
-         bottomPane3.setAlignment(Pos.CENTER);
-         //add the changing sizes and padding here**
-         myNewPane4.setBackground(new Background(myImage2));
+        Label questionDisplay = new Label(m.displayQuestion());
+        questionDisplay.setStyle("-fx-font-size: 20px;");
+        Color myColor = new Color(1.0, 0 , 0, 1.0);
+        questionDisplay.setTextFill(myColor);
+        questionDisplay.setAlignment(Pos.TOP_CENTER);
+        HBox disLabel= new HBox(questionDisplay);
+        disLabel.setAlignment(Pos.BOTTOM_CENTER);
+        disLabel.setPadding(new Insets(0));
+        
+        
+        VBox bottomPane3 = new VBox(25,questionDisplay, field1, mathRoom, finishGames );
+        //VBox topPane = new VBox(questionDisplay);
+        bottomPane3.setAlignment(Pos.CENTER);
+        myNewPane4.setBackground(new Background(myImage2));
          
-         myNewPane4.setCenter(bottomPane3);
-         myNewPane4.setBottom(resultLabel);
+        
+        //myNewPane4.setTop(topPane);
+        myNewPane4.setCenter(bottomPane3);
+        myNewPane4.setBottom(resultLabel);
      
-    bottomPane3.setPadding(new Insets(245, 0, 0, 0)); 
-         field1.setMaxWidth(150);
+        bottomPane3.setPadding(new Insets(145, 0, 0, 0)); 
+        field1.setMaxWidth(150);
  
         
-  //get text on each of the field values
+        //get text on each of the field values
       
-      //checking field values
-      mathRoom.setOnAction(e -> {
-        String userInput = field1.getText().toLowerCase();
-
-        boolean isCorrect = userInput.equals(correctAnswer.toLowerCase());
-        finishGame.setVisible(false);
-        if (isCorrect) {
-            field1.setStyle("-fx-border-color: green;");
-            result.setText("Congratulations. The answer is correct");
-            result.setStyle("-fx-text-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
+        //checking field values
+        mathRoom.setOnAction(e -> {
+            String userInput = field1.getText().toLowerCase();
+            int n = Integer.valueOf(userInput);
+            boolean isCorrect = m.checkAnswer(n);
             finishGame.setVisible(false);
-            puzzleCompleted= true;
-            checkGameCompletion(); 
-        } else {
-            field1.setStyle("-fx-border-color: red;");
-            result.setText("Try again in the red box!");
-            result.setStyle("-fx-text-fill: red; -fx-font-size: 20px; -fx-font-weight: bold;");
+            if (isCorrect) {
+                field1.setStyle("-fx-border-color: green;");
+                result.setText("Congratulations. The answer is correct");
+                result.setStyle("-fx-text-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
+                finishGame.setVisible(false);
+                if (mathCount < 4){
+                    mathCount++;
+                }
+                else{
+                mathCompleted= true;
+                }
+                checkGameCompletion(); 
+            } else {
+                field1.setStyle("-fx-border-color: red;");
+                result.setText("Try again in the red box!");
+                result.setStyle("-fx-text-fill: red; -fx-font-size: 20px; -fx-font-weight: bold;");
+            }
         }
-    });
+        );
      
-    return new Scene(myNewPane4,800, 450);
+        return new Scene(myNewPane4,800, 450);
         
     }
     private void mathRoomReset(MathRoom m1){
