@@ -43,11 +43,11 @@ public class Game extends Application {
     //gets the first screen in
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Insert Game Name");
-        primaryStage.setScene(playerSelectScreen());
-    
         
-      
+        primaryStage.setTitle("Insert Game Name");
+        
+        primaryStage.setScene(playerSelectScreen());
+        
         
         primaryStage.show();
         
@@ -328,6 +328,8 @@ public class Game extends Application {
         Button mathRoom = new Button("Check answer");
         Button finishGames = new Button("Finish the rest of the games");
         
+        
+        
         HBox bottomPane = new HBox(mathRoom);
         Button finishGame= new Button("End Game");
         finishGames.setVisible(true);
@@ -336,7 +338,9 @@ public class Game extends Application {
         bottomPane.setAlignment(Pos.BOTTOM_CENTER);
         mathRoom.setPadding(new Insets(10,30,10,10)); 
         finishGames.setPadding(new Insets(10,30,10,10)); 
-        finishGames.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
+        finishGames.setOnAction(e -> { primaryStage.setScene(ChoiceRoomScene()); 
+            checkGameCompletion();
+        });
         
         
         BackgroundImage myImage2= new BackgroundImage(new Image("mathRoom.png",800, 450,false, true),
@@ -393,18 +397,24 @@ public class Game extends Application {
                 result.setText("Congratulations. The answer is correct");
                 result.setStyle("-fx-text-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
                 finishGame.setVisible(false);
+                mathCompleted= true;
+                checkGameCompletion(); 
                 if (mathCount < 4){
                     mathCount++;
+                    checkGameCompletion(); 
                 }
                 else{
                 mathCompleted= true;
                 }
                 checkGameCompletion(); 
             } else {
+                mathCompleted= false;
                 field1.setStyle("-fx-border-color: red;");
                 result.setText("Try again in the red box!");
                 result.setStyle("-fx-text-fill: red; -fx-font-size: 20px; -fx-font-weight: bold;");
+                checkGameCompletion(); 
             }
+            checkGameCompletion(); 
         }
         );
      
@@ -513,11 +523,12 @@ public class Game extends Application {
         } else {
             lockCorrectField(fields[i]);
             nextGame.setVisible(true);
-            puzzleCompleted= true;
+            riddleCompleted= true;
             checkGameCompletion(); 
             
         
         }
+        checkGameCompletion();
     }
         showResult(allCorrect, result);
     
@@ -527,6 +538,7 @@ public class Game extends Application {
              
         nextGame.setOnAction(e -> { 
             primaryStage.setScene(riddleRoomScreen());
+            checkGameCompletion();
     
     });
 
@@ -536,7 +548,8 @@ public class Game extends Application {
         
         nextGame.setPadding(new Insets(10,30,10,10)); 
         
-        nextGame.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
+        nextGame.setOnAction(e -> { checkGameCompletion(); primaryStage.setScene(ChoiceRoomScene());
+    });
         
   //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
         HBox roomPuzzle = new HBox(90, checkButton);
@@ -646,7 +659,8 @@ public class Game extends Application {
         riddleRoom.setPadding(new Insets(10,30,10,10)); 
         finishGames.setPadding(new Insets(10,30,10,10)); 
         
-        finishGames.setOnAction(e -> primaryStage.setScene(ChoiceRoomScene()));
+        finishGames.setOnAction(e -> { primaryStage.setScene(ChoiceRoomScene()); checkGameCompletion();
+    });
         
 
         //set all buttons to lead to "riddle Room" screen
@@ -709,6 +723,7 @@ public class Game extends Application {
             result.setText("Try again in the red box!");
             result.setStyle("-fx-text-fill: red; -fx-font-size: 20px; -fx-font-weight: bold;");
         }
+        checkGameCompletion();
     });
      
     return new Scene(myNewPane4,800, 450);
@@ -812,17 +827,31 @@ public boolean checkAnswer(TextField userAnswerField, riddleRoom riddle) {
 //this isnt working yet. Not sure if we wanna dd it
 
 private Scene victoryScene() {
-    Label congrats = new Label("?You won! You saved " + characterSaved + "!");
+    Label congrats = new Label("You won! You saved " + characterSaved + "!");
     congrats.setStyle("-fx-font-size: 30px; -fx-text-fill: green; -fx-font-weight: bold;");
-
+    
+    BackgroundImage myImage2= new BackgroundImage(new Image("last.png",800, 450,false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);  
+    
+    BorderPane myNewPane4 = new BorderPane();
+        
+        
+        
+    myNewPane4.setBackground(new Background(myImage2));
+        
+        
+        
+    
     Button playAgain = new Button("Play Again");
     playAgain.setOnAction(e -> resetGame());
 
     VBox design = new VBox(50, congrats, playAgain);
+    myNewPane4.setCenter(design);
     design.setAlignment(Pos.CENTER);
 
 
-    return new Scene(design, 800, 450);
+    return new Scene(myNewPane4, 800, 450);
 }
 private void resetGame() {
     mathCompleted = false;
@@ -833,7 +862,7 @@ private void resetGame() {
     primaryStage.setScene(playerSelectScreen());
 }
 private void checkGameCompletion(){
-    if (puzzleCompleted && riddleCompleted) {
+    if (mathCompleted == true && puzzleCompleted == true && riddleCompleted == true) {
         primaryStage.setScene(victoryScene());
     }
 }
