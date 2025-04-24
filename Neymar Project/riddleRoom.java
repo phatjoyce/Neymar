@@ -10,8 +10,7 @@ public class riddleRoom extends Room{
     
     public riddleRoom(String x, boolean k, int difficultyLevel){
         super(x,k);
-        //this.name= x;
-        //this.keyStatus= k;
+     
         this.level= difficultyLevel;
         this.wordList= new ArrayList<>();
         this.wordList.add("mirror");

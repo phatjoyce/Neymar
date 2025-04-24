@@ -19,11 +19,7 @@ public class Player
     public void changeHealth(int x){
         health = health + x;
     }
-    /*
-    public void setLocation(Room z){
-        location = z;
-    }
-    */
+  
     
     public int getHealth(){
         return health;
@@ -31,13 +27,8 @@ public class Player
     public String getName(){
         return name;
     }
-    /*
-    public Room getLocation(){
-        return location;
+  
     }
-    public Room setLocation(Room r){
-        location = r;
-    }
-    */
+ 
     
-}
+

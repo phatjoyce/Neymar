@@ -59,16 +59,11 @@ public class Game extends Application {
     
     //Player Select Screen
     private Scene playerSelectScreen() {
-        //first image
         
-        //BackgroundImage myImage = new BackgroundImage("first.png", 800, 450, false, false);
-        //ImageView ver= new ImageView();
-        //ver.setBackground(myImage); 
         
         
         //texts
         Text welcomeText = new Text("Choose your character");
-        
         
        
         
@@ -92,11 +87,7 @@ public class Game extends Application {
         playerNeymarButton.setOnAction(e -> playerSelectAction("Neymar",2));
         
         
-        
-        
-        
-        // HIII THIS IS CAMI
-        
+    
         //bottom panel
         //add the changing sizes and padding here**
         
@@ -141,12 +132,7 @@ public class Game extends Application {
     // Choosing Messi/Ronaldo Screen //coding direction done //coding aethetics needed
     private Scene chooseMessiRonaldoScreen() {
         
-        //second displayed image
-        //BackgroundImage myImage2= new BackgroundImage("second.png", 800, 450, false, false);
-        //ImageView secondView= new ImageView();
-       // secondView.setBackground(myImage2); 
-        
-    
+ 
        
         
         //texts
@@ -189,13 +175,6 @@ public class Game extends Application {
         
         
         
-        //root.setBackground(new Background(myImage));
-        
-        
-        //whole
-        //VBox root = new VBox(topPane, bottomPane);
-        //root.setSpacing(10);
-        //root.setStyle("-fx-padding: 10;");
         
         //sizing of main box application*
         return new Scene(myNewPane2, 800, 450);
@@ -495,12 +474,8 @@ public class Game extends Application {
         
         TextField[] fields = {field1,field2,field3};
         
-       
-    
-        
         Label result = new Label();
-        
-        
+           
         
         checkButton.setOnAction(e -> {  
             boolean allCorrect = true;
@@ -523,7 +498,7 @@ public class Game extends Application {
         } else {
             lockCorrectField(fields[i]);
             nextGame.setVisible(true);
-            riddleCompleted= true;
+            puzzleCompleted= true;
             checkGameCompletion(); 
             
         
@@ -551,7 +526,6 @@ public class Game extends Application {
         nextGame.setOnAction(e -> { checkGameCompletion(); primaryStage.setScene(ChoiceRoomScene());
     });
         
-  //BEN IM COMMENTING THIS OUT SO that I CAN COMPILE      
         HBox roomPuzzle = new HBox(90, checkButton);
    
         BackgroundImage myImage2= new BackgroundImage(new Image("puzzleRoomPicture.png",800, 450,false, true),
@@ -644,9 +618,7 @@ public class Game extends Application {
     
         
         //creates 3 buttons
-        //Button startGame = new Button("Next Game");
-        
-        //startGame.setOnAction(e -> createRiddleRoom("r1"));    
+      
         Button riddleRoom = new Button("Check answer");
         Button finishGames = new Button("Finish the rest of the games");
         
@@ -684,12 +656,10 @@ public class Game extends Application {
        
         field1.setPrefWidth(20);
         HBox resultLabel= new HBox(result);
-        //VBox bottomPane3 = new VBox(95, topPane1, field1, riddleRoom  );
         resultLabel.setAlignment(Pos.BOTTOM_CENTER);
         resultLabel.setPadding(new Insets(0));
-     ///   bottomPane3.setAlignment(Pos.BOTTOM_CENTER);
+
         
-      // myNewPane4.setCenter(bottomPane3);
         
         VBox bottomPane3 = new VBox(25,field1, riddleRoom, finishGames );
          bottomPane3.setAlignment(Pos.CENTER);
@@ -716,7 +686,7 @@ public class Game extends Application {
             result.setText("Congratulations. The answer is correct");
             result.setStyle("-fx-text-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
             finishGame.setVisible(false);
-            puzzleCompleted= true;
+            riddleCompleted= true;
             checkGameCompletion(); 
         } else {
             field1.setStyle("-fx-border-color: red;");
@@ -796,15 +766,10 @@ public class Game extends Application {
         
         myNewPane4.setTop(resultLabel);
         
-  
-        
-       // fieldsBox.setPadding(new Insets(20, 50, 0, 0));
       
        BorderPane.setMargin(field1, new Insets(220, 0, 0, 480));
         
   //get text on each of the field values
-  
-  
   
   
     
@@ -823,8 +788,6 @@ public boolean checkAnswer(TextField userAnswerField, riddleRoom riddle) {
     return userAnswer.equals("mirror");
 }
 //Room to give them the option to choose where to start 
-
-//this isnt working yet. Not sure if we wanna dd it
 
 private Scene victoryScene() {
     Label congrats = new Label("You won! You saved " + characterSaved + "!");
@@ -875,20 +838,4 @@ private void checkGameCompletion(){
 }
 
 
-    //String playerSaved;
-    
-        /*gui for character select
-         * gui for which to save
-         *      change the player saved variable
-         * gui for main screen
-         *      add a switch for different room types
-         * 
-         * 
-         * 
-         * 
-         * 
-         */
-        
-        
-        
-      
+   
