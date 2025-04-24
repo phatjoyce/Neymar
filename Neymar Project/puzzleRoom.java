@@ -34,6 +34,7 @@ public class puzzleRoom extends Room{
         this.wordList.add("gal");
         this.wordList.add("boy");
         this.wordList.add("cat");
+        this.wordList.add("oak");
         
     }
     public ArrayList<String> getCorrectAnswers(){

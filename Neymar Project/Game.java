@@ -494,6 +494,7 @@ public class Game extends Application {
             nextGame.setVisible(true);
             allCorrect= false;
             
+            
     
         } else {
             lockCorrectField(fields[i]);
